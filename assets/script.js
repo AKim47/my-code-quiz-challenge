@@ -7,6 +7,7 @@ var h2E1 = document.createElement("h2");
 var startHTML = document.createElement("div");
 var startBtn = document.createElement("button");
 var question = 0;
+var finalScore = 0;
 
 scoresBtn.textContent = "View Scores";
 timerHTML.textContent = 35;
@@ -25,10 +26,9 @@ startHTML.appendChild(startBtn);
 scoresBtn.id = "scores";
 startBtn.id = "generate";
 
-
 var scores = document.querySelector("#scores");
 var start = document.querySelector("#generate");
-var highScore = [["Abel Kim", 20]];
+var highScore = [];
 
 scores.addEventListener("click", function(){
     body.innerHTML = "";
@@ -48,11 +48,12 @@ start.addEventListener("click", function(){
 
 function countdown() {
     var timeInterval = setInterval(function (){
-        if (timerHTML.textContent > 0) {
+        if (timerHTML.textContent > 0 && finalScore === 0) {
             timerHTML.textContent--;
         }
         else {
-            body.innerHTML = "";
+            clearInterval(timeInterval);
+            submitScore();
         }
     }, 1000);
 }
@@ -60,7 +61,9 @@ function countdown() {
 function changePage() {
 
     if (question > 3 || timerHTML.textContent <=0){
-        body.innerHTML = "";
+        finalScore = timerHTML.textContent;
+        console.log(question);
+        submitScore();
     }
     else if (question === 1){
         var q1H1 = document.createElement("h1");
@@ -200,3 +203,62 @@ function changePage() {
     }
     
 };
+
+function submitScore() {
+    body.innerHTML = "";
+    var submitH1 = document.createElement("h1");
+    var congratsScore = document.createElement("h2");
+    var submitAreaDiv = document.createElement("div");
+    var submitAreaLabel = document.createElement("p");
+    var submitArea = document.createElement("textarea");
+    var submitBtn = document.createElement("button");
+
+    submitH1.textContent = "All Done!"
+    congratsScore.textContent = "Congratulations, you got " + timerHTML.textContent + " points.";
+    submitAreaLabel.textContent = "Enter Intials: ";
+    submitArea.textContent = "";
+    submitBtn.textContent = "Submit";
+
+    body.appendChild(submitH1);
+    body.appendChild(congratsScore);
+    body.appendChild(submitAreaDiv);
+    submitAreaDiv.appendChild(submitAreaLabel);
+    submitAreaDiv.appendChild(submitArea);
+    body.appendChild(submitBtn);
+
+    submitBtn.className = "submit";
+    var submit = document.querySelector(".submit");
+    submit.addEventListener("click", function(){
+        if (timerHTML.textContent < 0) {
+            timerHTML.textContent = 0;
+        }
+        highScore.push([submitArea.value, timerHTML.textContent]);
+        body.innerHTML = "";
+        reset();
+    });
+
+    
+}
+
+function reset() {
+    question = 0;
+    finalScore = 0;
+
+    scoresBtn.textContent = "View Scores";
+    timerHTML.textContent = 35;
+    h1E1.textContent = "Coding Quiz Challenge";
+    h2E1.textContent = "Try and complete this quiz before time runs out! Every wrong answer deducts 10 seconds from your time/score.";
+    startBtn.textContent = "Start Quiz";
+
+    body.appendChild(scoresHTML);
+    scoresHTML.appendChild(scoresBtn);
+    body.appendChild(timerHTML);
+    body.appendChild(h1E1);
+    body.appendChild(h2E1);
+    body.appendChild(startHTML);
+    startHTML.appendChild(startBtn);
+
+    scoresBtn.id = "scores";
+    startBtn.id = "generate";
+
+}
