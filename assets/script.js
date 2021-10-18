@@ -30,8 +30,6 @@ var scores = document.querySelector("#scores");
 var start = document.querySelector("#generate");
 var highScore = [["Abel Kim", 20]];
 
-
-
 scores.addEventListener("click", function(){
     body.innerHTML = "";
     for (let i = 0; i < highScore.length; i++) {
@@ -44,8 +42,20 @@ start.addEventListener("click", function(){
     body.innerHTML = "";
     question++;
     console.log(question);
+    countdown();
     changePage();
 });
+
+function countdown() {
+    var timeInterval = setInterval(function (){
+        if (timerHTML.textContent > 0) {
+            timerHTML.textContent--;
+        }
+        else {
+            body.innerHTML = "";
+        }
+    }, 1000);
+}
 
 function changePage() {
 
