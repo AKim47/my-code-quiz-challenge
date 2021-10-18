@@ -32,10 +32,18 @@ var highScore = [];
 
 scores.addEventListener("click", function(){
     body.innerHTML = "";
+    var scoreboard = document.createElement("p");
+    scoreboard.textContent = "";
+    body.appendChild(scoreboard);
+    var rankings = ""
+
     for (let i = 0; i < highScore.length; i++) {
-        console.log(highScore[i][0])
+        var nameEntry = highScore[i][0];
+        var scoreEntry = highScore[i][1];
+        rankings = rankings + nameEntry + ": " + scoreEntry;
     }
-    alert("scores button clicked");
+    scoreboard.textContent = rankings;
+
 });
 
 start.addEventListener("click", function(){
@@ -233,6 +241,7 @@ function submitScore() {
             timerHTML.textContent = 0;
         }
         highScore.push([submitArea.value, timerHTML.textContent]);
+        console.log(highScore);
         body.innerHTML = "";
         reset();
     });
