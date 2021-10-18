@@ -41,10 +41,18 @@ scores.addEventListener("click", function(){
 });
 
 start.addEventListener("click", function(){
-    question++;
     body.innerHTML = "";
+    question++;
+    console.log(question);
+    changePage();
+});
 
-    if (question === 1){
+function changePage() {
+
+    if (question > 3 || timerHTML.textContent <=0){
+        body.innerHTML = "";
+    }
+    else if (question === 1){
         var q1H1 = document.createElement("h1");
         var q1BtnWrapper = document.createElement("div");
         var q1B1 = document.createElement("button");
@@ -63,28 +71,122 @@ start.addEventListener("click", function(){
         q1BtnWrapper.appendChild(q1B2);
         q1BtnWrapper.appendChild(q1B3);
         q1BtnWrapper.appendChild(q1B4);
-        q1B1.id = "btn";
-        q1B2.id = "btn";
-        q1B3.id = "btn";
-        q1B4.id = "btn";
-        const buttons = document.querySelectorAll('#btn')
+        q1B1.className = "btn";
+        q1B2.className = "btn";
+        q1B3.className = "btn";
+        q1B4.className = "btn";
+        const buttons = document.querySelectorAll('.btn')
         buttons.forEach(function(currentBtn){
             currentBtn.addEventListener('click', function(){
                 if (currentBtn.textContent === "Git Clone"){
+                    body.innerHTML = "";
                     var ans = document.createElement("p");
                     ans.textContent = "Correct";
                     body.appendChild(ans);
-                }
+                    }
                 else{
+                    body.innerHTML = "";
                     timerHTML.textContent = timerHTML.textContent - 10;
                     var ans = document.createElement("p");
                     ans.textContent = "Incorrect";
                     body.appendChild(ans);
-                }
+                    }
                 question++;
-            })
-        })
+                console.log(question);
+                changePage();
+            });
+        });
+    }
+    else if (question === 2){
+        var q2H1 = document.createElement("h1");
+        var q2BtnWrapper = document.createElement("div");
+        var q2B1 = document.createElement("button");
+        var q2B2 = document.createElement("button");
+        var q2B3 = document.createElement("button");
+        var q2B4 = document.createElement("button");
+        q2H1.textContent = "What do you use to pull changes to the remote repo to your local drive?"
+        q2B1.textContent = "Git Clone";
+        q2B2.textContent = "Git Pull";
+        q2B3.textContent = "Git Commit";
+        q2B4.textContent = "Git Add";
+        body.appendChild(timerHTML);
+        body.appendChild(q2H1);
+        body.appendChild(q2BtnWrapper);
+        q2BtnWrapper.appendChild(q2B1);
+        q2BtnWrapper.appendChild(q2B2);
+        q2BtnWrapper.appendChild(q2B3);
+        q2BtnWrapper.appendChild(q2B4);
+        q2B1.className = "btn";
+        q2B2.className = "btn";
+        q2B3.className = "btn";
+        q2B4.className = "btn";
+        const buttons = document.querySelectorAll('.btn')
+        buttons.forEach(function(currentBtn){
+            currentBtn.addEventListener('click', function(){
+                if (currentBtn.textContent === "Git Pull"){
+                    body.innerHTML = "";
+                    var ans = document.createElement("p");
+                    ans.textContent = "Correct";
+                    body.appendChild(ans);
+                    }
+                else{
+                    body.innerHTML = "";
+                    timerHTML.textContent = timerHTML.textContent - 10;
+                    var ans = document.createElement("p");
+                    ans.textContent = "Incorrect";
+                    body.appendChild(ans);
+                    }
+                question++;
+                console.log(question);
+                changePage();
+            });
+        });
     }
 
-
-});
+    else if (question === 3){
+        var q3H1 = document.createElement("h1");
+        var q3BtnWrapper = document.createElement("div");
+        var q3B1 = document.createElement("button");
+        var q3B2 = document.createElement("button");
+        var q3B3 = document.createElement("button");
+        var q3B4 = document.createElement("button");
+        q3H1.textContent = "What do you use to add comments to the changes you are pushing from your local drive to the repo?"
+        q3B1.textContent = "Git Clone";
+        q3B2.textContent = "Git Pull";
+        q3B3.textContent = "Git Commit";
+        q3B4.textContent = "Git Add";
+        body.appendChild(timerHTML);
+        body.appendChild(q3H1);
+        body.appendChild(q3BtnWrapper);
+        q3BtnWrapper.appendChild(q3B1);
+        q3BtnWrapper.appendChild(q3B2);
+        q3BtnWrapper.appendChild(q3B3);
+        q3BtnWrapper.appendChild(q3B4);
+        q3B1.className = "btn";
+        q3B2.className = "btn";
+        q3B3.className = "btn";
+        q3B4.className = "btn";
+        const buttons = document.querySelectorAll('.btn')
+        buttons.forEach(function(currentBtn){
+            currentBtn.addEventListener('click', function(){
+                if (currentBtn.textContent === "Git Commit"){
+                    body.innerHTML = "";
+                    var ans = document.createElement("p");
+                    ans.textContent = "Correct";
+                    body.appendChild(ans);
+                    }
+                else{
+                    body.innerHTML = "";
+                    timerHTML.textContent = timerHTML.textContent - 10;
+                    var ans = document.createElement("p");
+                    ans.textContent = "Incorrect";
+                    body.appendChild(ans);
+                    }
+                question++;
+                console.log(question);
+                changePage();
+            });
+        });
+    }
+    
+};
